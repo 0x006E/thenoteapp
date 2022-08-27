@@ -22,11 +22,13 @@ const Topic = types
         })
       );
     }
-
-    function remove() {
-      getParent(self, 2).remove(self);
+    function removeChild(item) {
+      self.notes.remove(item);
     }
-    return { edit, remove, addNote };
+    function remove() {
+      getParent(self, 2).removeChild(self);
+    }
+    return { edit, remove, removeChild, addNote };
   });
 
 export default Topic;

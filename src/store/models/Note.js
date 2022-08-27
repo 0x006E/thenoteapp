@@ -7,10 +7,10 @@ const Note = types
   })
   .actions((self) => {
     function edit(newContent) {
-      self.name = newName;
+      self.content = newContent;
     }
     function remove() {
-      getParent(self, 2).remove(self);
+      getParent(self, 2).removeChild(self);
     }
 
     return { edit, remove };

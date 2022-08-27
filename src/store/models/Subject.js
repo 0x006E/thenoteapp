@@ -21,10 +21,13 @@ const Subject = types
         })
       );
     }
+    function removeChild(item) {
+      self.topics.remove(item);
+    }
     function remove() {
       getParent(self, 2).remove(self);
     }
-    return { edit, remove, addTopic };
+    return { edit, remove, removeChild, addTopic };
   });
 
 export default Subject;

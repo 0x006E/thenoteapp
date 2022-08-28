@@ -1,7 +1,7 @@
 import { getParent, types } from "mobx-state-tree";
 
 const Notification = types
-  .model({
+  .model("Notification", {
     id: types.identifier,
     message: types.string,
     variant: types.string,

@@ -12,6 +12,7 @@ import TopicsHeader from "./TopicsHeader";
 function Topics({ initial = false }) {
   const { subject: subjectId } = useParams();
   const store = useContext(storeContext);
+
   const subject = store.subjects.find((subject) => subject.id === subjectId);
   const [open, setOpen] = useState(false);
 

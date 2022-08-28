@@ -7,17 +7,23 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: (id) => {
-          if (id.includes("node_modules")) {
-            if (id.includes("@mui")) {
-              return "vendor_mui";
-            } else if (id.includes("firebase")) {
-              return "vendor_firebase";
-            }
-            return "vendor"; // all other package goes here
-          }
+          if (id.includes("node_modules"))
+            return id
+              .toString()
+              .split("node_modules/")[1]
+              .split("/")[0]
+              .toString();
         },
       },
     },
+  },
+  resolve: {
+    alias: [
+      {
+        find: /^@mui\/icons-material\/(.*)/,
+        replacement: "@mui/icons-material/esm/$1",
+      },
+    ],
   },
   plugins: [react(), splitVendorChunkPlugin()],
 });

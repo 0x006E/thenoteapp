@@ -1,6 +1,6 @@
 import { Backdrop, Box, CircularProgress, Typography } from "@mui/material";
 import { observer } from "mobx-react";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { storeContext } from "../../store";
 import Notifier from "../Notifier";
 import RouterPaths from "../RouterPaths";
@@ -8,10 +8,6 @@ import Sidebar from "../Sidebar";
 
 function ContentContainer() {
   const store = useContext(storeContext);
-
-  useEffect(() => {
-    store.fetchData();
-  }, []);
 
   return (
     <Box sx={{ ml: "240px" }}>

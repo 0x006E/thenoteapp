@@ -1,4 +1,4 @@
-import { flow, getParent, types } from "mobx-state-tree";
+import { flow, getParent, getRoot, types } from "mobx-state-tree";
 import { addNoteDoc, editTopicDoc, removeTopicDoc } from "../../api";
 import Note from "./Note";
 
@@ -10,6 +10,7 @@ const Topic = types
   })
   .actions((self) => {
     const edit = flow(function* (newName) {
+      const actions = getRoot(self);
       try {
         actions.enqueueNotification("Editing topic", "info");
         const subjectId = getParent(self, 2).id;
@@ -24,6 +25,7 @@ const Topic = types
     });
 
     const addNote = flow(function* (content) {
+      const actions = getRoot(self);
       try {
         actions.enqueueNotification("Adding a new note", "info");
         const subjectId = getParent(self, 2).id;
@@ -41,6 +43,7 @@ const Topic = types
     }
 
     const remove = flow(function* () {
+      const actions = getRoot(self);
       try {
         actions.enqueueNotification("Removing topic", "info");
         const subjectId = getParent(self, 2).id;

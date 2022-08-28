@@ -1,7 +1,8 @@
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { SnackbarProvider } from "notistack";
-import React from "react";
+import React, { useEffect } from "react";
 import ContentContainer from "./components/ContentContainer";
+import { store } from "./store";
 
 function App() {
   const theme = createTheme({
@@ -9,6 +10,11 @@ function App() {
       fontFamily: "Open Sans, sans-serif",
     },
   });
+
+  useEffect(() => {
+    store.fetchData();
+    console.log("hello");
+  }, []);
 
   return (
     <>

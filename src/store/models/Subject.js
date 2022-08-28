@@ -1,4 +1,4 @@
-import { flow, getParent, types } from "mobx-state-tree";
+import { flow, getParent, getRoot, types } from "mobx-state-tree";
 import { addTopicDoc, editSubjectDoc, removeSubjectDoc } from "../../api";
 import Topic from "./Topic";
 
@@ -10,7 +10,7 @@ const Subject = types
   })
   .actions((self) => {
     const subjectId = self.id;
-
+    const actions = getRoot(self);
     const edit = flow(function* (newName) {
       try {
         actions.enqueueNotification("Editing subject", "info");

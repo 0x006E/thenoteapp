@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
-import NoDataIMG from "../assets/empty-folder.png";
+import NoDataIMG from "../assets/empty-folder.webp";
 
 function NoData(props) {
   const { text = "No data" } = props;

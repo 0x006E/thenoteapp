@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
-import error404 from "../assets/404.jpg";
+import error404 from "../assets/404.webp";
 
 function Error404(props) {
   const { text = "Page not found" } = props;

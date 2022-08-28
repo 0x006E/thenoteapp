@@ -13,7 +13,7 @@ function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <SnackbarProvider autoHideDuration={1000} preventDuplicate maxSnack={4}>
+        <SnackbarProvider autoHideDuration={4000} preventDuplicate maxSnack={8}>
           <CssBaseline />
           <ContentContainer />
         </SnackbarProvider>

@@ -18,6 +18,7 @@ const RootStore = types
           actions.enqueueNotification("Connecting to firestore", "info");
           const data = yield getAllDocs();
           applySnapshot(self, data);
+          actions.setLoading(false);
           actions.enqueueNotification("Fetching data done!", "success");
         } catch (error) {
           console.log(error);
@@ -28,7 +29,6 @@ const RootStore = types
           );
           actions.setConnectionStatus(false);
         }
-        actions.setLoading(false);
       }),
       setLoading(state) {
         self.loading = state;

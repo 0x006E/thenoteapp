@@ -1,17 +1,9 @@
-import { getParent, types } from "mobx-state-tree";
+import { types } from "mobx-state-tree";
 
-const Notification = types
-  .model("Notification", {
-    id: types.identifier,
-    message: types.string,
-    variant: types.string,
-  })
-  .actions((self) => {
-    function remove() {
-      getParent(self, 2).remove(self);
-    }
-
-    return { remove };
-  });
+const Notification = types.model("Notification", {
+  id: types.identifier,
+  message: types.string,
+  variant: types.string,
+});
 
 export default Notification;

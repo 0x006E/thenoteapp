@@ -11,7 +11,6 @@ function Notifier() {
   onSnapshot(store.notifications, (notifications) => {
     if (notifications.length > 0) {
       notifications.forEach((notification) => {
-        console.log("notification", notification);
         enqueueSnackbar(notification.message, {
           preventDuplicate: true,
           key: notification.id,

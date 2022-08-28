@@ -1,7 +1,8 @@
-import { Backdrop, Box, CircularProgress } from "@mui/material";
+import { Backdrop, Box, CircularProgress, Typography } from "@mui/material";
 import { observer } from "mobx-react";
 import React, { useContext, useEffect } from "react";
 import { storeContext } from "../../store";
+import Notifier from "../Notifier";
 import RouterPaths from "../RouterPaths";
 import Sidebar from "../Sidebar";
 
@@ -23,8 +24,15 @@ function ContentContainer() {
         }}
         open={store.loading}
       >
-        <CircularProgress color="inherit" />
+        {!store.online ? (
+          <Typography variant="h4" fontWeight={700} textAlign={"center"}>
+            You are not connected to the internet
+          </Typography>
+        ) : (
+          <CircularProgress color="inherit" />
+        )}
       </Backdrop>
+      <Notifier />
       <Sidebar />
       <RouterPaths />
     </Box>

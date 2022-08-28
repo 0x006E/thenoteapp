@@ -11,23 +11,29 @@ const Topic = types
   .actions((self) => {
     const edit = flow(function* (newName) {
       try {
+        actions.enqueueNotification("Editing topic", "info");
         const subjectId = getParent(self, 2).id;
         const topicId = self.id;
         yield editTopicDoc(topicId, subjectId, { name: newName });
         self.name = newName;
+        actions.enqueueNotification("Push to firestore  - done!", "success");
       } catch (error) {
         console.log(error);
+        actions.enqueueNotification("Push failed!", "error");
       }
     });
 
     const addNote = flow(function* (content) {
       try {
+        actions.enqueueNotification("Adding a new note", "info");
         const subjectId = getParent(self, 2).id;
         const topicId = self.id;
         const noteId = yield addNoteDoc(topicId, subjectId, { content });
         self.notes.push(Note.create({ id: noteId, content }));
+        actions.enqueueNotification("Push to firestore  - done!", "success");
       } catch (error) {
         console.log(error);
+        actions.enqueueNotification("Push failed!", "error");
       }
     });
     function removeChild(item) {
@@ -36,12 +42,15 @@ const Topic = types
 
     const remove = flow(function* () {
       try {
+        actions.enqueueNotification("Removing topic", "info");
         const subjectId = getParent(self, 2).id;
         const topicId = self.id;
         yield removeTopicDoc(topicId, subjectId);
         getParent(self, 2).removeChild(self);
+        actions.enqueueNotification("Push to firestore  - done!", "success");
       } catch (error) {
         console.log(error);
+        actions.enqueueNotification("Push failed!", "error");
       }
     });
     return { edit, remove, removeChild, addNote };

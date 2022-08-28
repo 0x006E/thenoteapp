@@ -25,32 +25,28 @@ const noteCollectionRef = (subId, docId) =>
   );
 
 export async function getAllDocs() {
-  try {
-    const querySnapshot = await getDocsFromServer(rootCollectionRef);
-    const subjects = [];
-    for (const doc of querySnapshot.docs) {
-      const subject = doc.data();
-      const topicQuerySnapshot = await getDocsFromServer(
-        topicCollectionRef(subject.id)
+  const querySnapshot = await getDocsFromServer(rootCollectionRef);
+  const subjects = [];
+  for (const doc of querySnapshot.docs) {
+    const subject = doc.data();
+    const topicQuerySnapshot = await getDocsFromServer(
+      topicCollectionRef(subject.id)
+    );
+    for (const topicDoc of topicQuerySnapshot.docs) {
+      const topic = topicDoc.data();
+      const noteQuerySnapshot = await getDocsFromServer(
+        noteCollectionRef(subject.id, topic.id)
       );
-      for (const topicDoc of topicQuerySnapshot.docs) {
-        const topic = topicDoc.data();
-        const noteQuerySnapshot = await getDocsFromServer(
-          noteCollectionRef(subject.id, topic.id)
-        );
-        for (const noteDoc of noteQuerySnapshot.docs) {
-          const note = noteDoc.data();
-          topic.notes.push(note);
-        }
-        subject.topics.push(topic);
+      for (const noteDoc of noteQuerySnapshot.docs) {
+        const note = noteDoc.data();
+        topic.notes.push(note);
       }
-      subjects.push(subject);
+      subject.topics.push(topic);
     }
-
-    return { subjects };
-  } catch (err) {
-    console.log("hello", err);
+    subjects.push(subject);
   }
+
+  return { subjects };
 }
 
 export async function addSubjectDoc(name) {

@@ -13,18 +13,24 @@ const Subject = types
 
     const edit = flow(function* (newName) {
       try {
+        actions.enqueueNotification("Editing subject", "info");
         yield editSubjectDoc(subjectId, { name: newName });
         self.name = newName;
+        actions.enqueueNotification("Push to firestore  - done!", "success");
       } catch (error) {
         console.log(error);
+        actions.enqueueNotification("Push failed!", "error");
       }
     });
     const addTopic = flow(function* (name) {
       try {
+        actions.enqueueNotification("Adding a new topic", "info");
         const topicId = yield addTopicDoc(subjectId, { name });
         self.topics.push(Topic.create({ id: topicId, name }));
+        actions.enqueueNotification("Push to firestore  - done!", "success");
       } catch (error) {
         console.log(error);
+        actions.enqueueNotification("Push failed!", "error");
       }
     });
     function removeChild(item) {
@@ -33,10 +39,13 @@ const Subject = types
 
     const remove = flow(function* () {
       try {
+        actions.enqueueNotification("Removing subject", "info");
         yield removeSubjectDoc(subjectId);
         getParent(self, 2).remove(self);
+        actions.enqueueNotification("Push to firestore  - done!", "success");
       } catch (error) {
         console.log(error);
+        actions.enqueueNotification("Push failed!", "error");
       }
     });
     return { edit, remove, removeChild, addTopic };

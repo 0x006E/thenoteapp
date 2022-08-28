@@ -1,25 +1,26 @@
 import { observer } from "mobx-react";
-import { onAction } from "mobx-state-tree";
+import { onSnapshot } from "mobx-state-tree";
 import { useSnackbar } from "notistack";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { storeContext } from "../store";
 
 function Notifier() {
-  const { enqueueSnackbar, _ } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   const store = useContext(storeContext);
 
-  useEffect(() => {
-    const disposer = onAction(store, (call) => {
-      console.info(
-        "Action was called:",
-        enqueueSnackbar(call.name, { variant: "success" })
-      );
-    });
+  onSnapshot(store.notifications, (notifications) => {
+    if (notifications.length > 0) {
+      notifications.forEach((notification) => {
+        console.log("notification", notification);
+        enqueueSnackbar(notification.message, {
+          preventDuplicate: true,
+          key: notification.id,
+          variant: notification.variant,
+        });
+      });
+    }
+  });
 
-    return () => {
-      disposer();
-    };
-  }, []);
   return null;
 }
 

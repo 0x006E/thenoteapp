@@ -2,7 +2,6 @@ import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { SnackbarProvider } from "notistack";
 import React from "react";
 import ContentContainer from "./components/ContentContainer";
-import Notifier from "./components/Notifier";
 
 function App() {
   const theme = createTheme({
@@ -14,14 +13,7 @@ function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <SnackbarProvider
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "right",
-          }}
-          maxSnack={3}
-        >
-          <Notifier />
+        <SnackbarProvider autoHideDuration={1000} preventDuplicate maxSnack={4}>
           <CssBaseline />
           <ContentContainer />
         </SnackbarProvider>

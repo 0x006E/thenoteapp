@@ -1,6 +1,9 @@
 # The Notes App
 
-A simple project that can create a: - Subjects - Topics - under each subject - Notes under each topic
+A simple project that can create a: 
+- Subjects 
+    - Topics under each subject 
+        - Notes under each topic
 
 ## Live Application URL
 

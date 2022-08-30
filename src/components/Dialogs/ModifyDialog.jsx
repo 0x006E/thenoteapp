@@ -32,7 +32,10 @@ function ModifyDialog(props) {
   const handleDelete = () => {
     const isNote = item?.content;
     item?.id && item.remove();
-    if (!isNote && location.pathname !== "/") navigate(-1);
+    //console.log(location.pathname);
+    if (!isNote && location.pathname !== "/") {
+      //      navigate(-1);
+    }
     onClose();
   };
 

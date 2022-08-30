@@ -8,7 +8,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function ModifyDialog(props) {
   const {
@@ -23,6 +23,7 @@ function ModifyDialog(props) {
   const itemKeyValue = item?.[`${key}`] ? item[`${key}`] : "";
   const [state, setState] = useState(itemKeyValue);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleEdit = () => {
     item?.id && item.edit(state);
@@ -31,7 +32,7 @@ function ModifyDialog(props) {
   const handleDelete = () => {
     const isNote = item?.content;
     item?.id && item.remove();
-    if (!isNote) navigate(-1);
+    if (!isNote && location.pathname !== "/") navigate(-1);
     onClose();
   };
 

@@ -10,9 +10,9 @@ const Subject = types
   })
   .actions((self) => {
     const subjectId = self.id;
-    const actions = getRoot(self);
     const edit = flow(function* (newName) {
       try {
+        const actions = getRoot(self);
         actions.enqueueNotification("Editing subject", "info");
         yield editSubjectDoc(subjectId, { name: newName });
         self.name = newName;
@@ -24,6 +24,7 @@ const Subject = types
     });
     const addTopic = flow(function* (name) {
       try {
+        const actions = getRoot(self);
         actions.enqueueNotification("Adding a new topic", "info");
         const topicId = yield addTopicDoc(subjectId, { name });
         self.topics.push(Topic.create({ id: topicId, name }));
@@ -39,6 +40,7 @@ const Subject = types
 
     const remove = flow(function* () {
       try {
+        const actions = getRoot(self);
         actions.enqueueNotification("Removing subject", "info");
         yield removeSubjectDoc(subjectId);
         getParent(self, 2).remove(self);
